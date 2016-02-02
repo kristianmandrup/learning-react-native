@@ -1,29 +1,34 @@
-var React = require('react-native');
-var {
+'use strict';
+import React, {
+  Component,
   StyleSheet,
   Text,
-  View,
   TextInput,
-  Image
-} = React;
+  Image,
+  View
+} from 'react-native';
 
-var Forecast = require('./Forecast');
+const Forecast = require('./Forecast');
 
-var WeatherProject = React.createClass({
-  getInitialState: function() {
-    return {
+const API_KEY = '53411941d1ad45ebd61644fc1b85c125';
+
+class WeatherProject extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
       zip: '',
       forecast: null
     };
-  },
+  }
 
-  _handleTextChange: function(event) {
+  onTextChange = (event) => {
     var zip = event.nativeEvent.text;
+    console.log('zip', zip);
     this.setState({zip: zip});
-    fetch('http://api.openweathermap.org/data/2.5/weather?q='
-      + zip + '&units=imperial')
+    fetch('http://api.openweathermap.org/data/2.5/weather?q=' + zip + '&units=imperial' + '&APPID=' + API_KEY)
       .then((response) => response.json())
       .then((responseJSON) => {
+        console.log('response', responseJSON);
         this.setState({
           forecast: {
             main: responseJSON.weather[0].main,
@@ -35,12 +40,12 @@ var WeatherProject = React.createClass({
       .catch((error) => {
         console.warn(error);
       });
-  },
+  };
 
-  render: function() {
+  render() {
     var content = null;
     if (this.state.forecast !== null) {
-      content = <Forecast 
+      content = <Forecast
                   main={this.state.forecast.main}
                   description={this.state.forecast.description}
                   temp={this.state.forecast.temp}/>;
@@ -53,12 +58,12 @@ var WeatherProject = React.createClass({
           <View style={styles.overlay}>
            <View style={styles.row}>
              <Text style={styles.mainText}>
-               Current weather for 
+               Current weather for
              </Text>
              <View style={styles.zipContainer}>
                <TextInput
                  style={[styles.zipCode, styles.mainText]}
-                 onSubmitEditing={this._handleTextChange}/>
+                 onSubmitEditing={this.onTextChange}/>
              </View>
            </View>
            {content}
@@ -67,11 +72,11 @@ var WeatherProject = React.createClass({
       </View>
     );
   }
-});
+}
 
-var baseFontSize = 16;
+const baseFontSize = 16;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',

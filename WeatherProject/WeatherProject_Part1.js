@@ -1,24 +1,27 @@
-var React = require('react-native');
-var {
+'use strict';
+import React, {
+  Component,
   StyleSheet,
   Text,
-  View,
-  TextInput
-} = React;
+  TextInput,
+  View
+} from 'react-native';
 
-
-var WeatherProject = React.createClass({
-  getInitialState() {
-    return ({
+class WeatherProject extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
       zip: ''
-    });
-  },
-  _handleTextChange(event) {
+    };
+  }
+
+  _handleTextChange = (event) => {
     console.log(event.nativeEvent.text);
     this.setState({
       zip: event.nativeEvent.text
     });
-  },
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -26,15 +29,15 @@ var WeatherProject = React.createClass({
           You input {this.state.zip}.
         </Text>
         <TextInput
-              style={styles.input}
-              returnKeyType='go'
-              onSubmitEditing={this._handleTextChange}/>
+          style={styles.input}
+          returnKeyType='go'
+          onSubmitEditing={this._handleTextChange}/>
       </View>
     );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
