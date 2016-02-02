@@ -1,9 +1,10 @@
-import React from 'react-native';
-var {
+'use strict';
+import React, {
   StyleSheet,
+  Component,
   View,
   Navigator
-} = React;
+} from 'react-native';
 
 import Reflux from 'reflux';
 
@@ -17,14 +18,14 @@ import Heading from './Header';
 import CardsStore from './../stores/CardsStore';
 import DeckMetaStore from './../stores/DeckMetaStore';
 
-var Zebreto = React.createClass({
-  displayName: 'Zebreto',
+class Zebreto extends Component {
+  displayName = 'Zebreto';
 
-  mixins: [Reflux.connect(DeckMetaStore, 'deckMetas')],
+  mixins = [Reflux.connect(DeckMetaStore, 'deckMetas')];
 
   componentWillMount() {
     CardsStore.emit();
-  },
+  }
 
   review(deckID) {
     DeckActions.reviewDeck(deckID);
@@ -34,7 +35,7 @@ var Zebreto = React.createClass({
         deckID: deckID
       }
     });
-  },
+  }
 
   createdDeck(deck) {
     this.refs.navigator.push({
@@ -43,11 +44,11 @@ var Zebreto = React.createClass({
         deck: deck
       }
     });
-  },
+  }
 
   goHome() {
     this.refs.navigator.popToTop();
-  },
+  }
 
   _renderScene(route) {
     switch (route.name) {
@@ -66,7 +67,7 @@ var Zebreto = React.createClass({
       console.error('Encountered unexpected route: ' + route.name);
     }
     return <Decks/>;
-  },
+  }
 
   render() {
     return (
@@ -79,9 +80,9 @@ var Zebreto = React.createClass({
       </View>
     );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30

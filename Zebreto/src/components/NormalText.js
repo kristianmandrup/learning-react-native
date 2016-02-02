@@ -1,20 +1,21 @@
-import React from 'react-native';
-var {
+'use strict';
+import React, {
   StyleSheet,
+  Component,
   Text,
   View
-} = React;
+} from 'react-native';
 
 import {fonts, scalingFactors} from './../styles/fonts';
 import Dimensions from 'Dimensions';
 let {width} = Dimensions.get('window');
 
-var NormalText = React.createClass({
-  displayName: 'NormalText',
+export default class NormalText extends Component {
+  static displayName = 'NormalText';
 
-  propTypes: {
+  static propTypes = {
     style: View.propTypes.style
-  },
+  };
 
   render() {
     return (
@@ -23,13 +24,11 @@ var NormalText = React.createClass({
       </Text>
       );
   }
-});
+}
 
-var scaled = StyleSheet.create({
+const scaled = StyleSheet.create({
   normal: {
     fontSize: width / scalingFactors.normal
   }
 });
-
-export default NormalText;
 

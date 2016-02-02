@@ -1,8 +1,10 @@
-import React from 'react-native';
-var {
+'use strict';
+
+import React, {
   StyleSheet,
+  Component,
   View
-} = React;
+} from 'react-native';
 
 import DeckModel from './../../data/Deck';
 
@@ -11,19 +13,27 @@ import NormalText from './../NormalText';
 
 import colors from './../../styles/colors';
 
-var Deck = React.createClass({
-  displayName: 'Deck',
-  propTypes: {
+export default class Deck extends Component {
+  static displayName = 'Deck';
+
+  static propTypes = {
     onReview: React.PropTypes.func.isRequired,
     deck: React.PropTypes.instanceOf(DeckModel),
     addCards: React.PropTypes.func.isRequired
-  },
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
   _review() {
     this.props.onReview(this.props.deck.id);
-  },
+  }
+
   _addCards() {
     this.props.addCards(this.props.deck);
-  },
+  }
+
   render() {
     return (
       <View style={styles.deckGroup}>
@@ -41,9 +51,9 @@ var Deck = React.createClass({
       </View>
       );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   deckGroup: {
     flex: 1,
     flexDirection: 'row',
@@ -70,5 +80,3 @@ var styles = StyleSheet.create({
     flex: 0
   }
 });
-
-module.exports = Deck;
