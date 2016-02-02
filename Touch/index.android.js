@@ -1,25 +1,25 @@
 'use strict';
 
-var React = require('react-native');
-var {
+import React, {
   AppRegistry,
+  Component,
   StyleSheet,
   Text,
-  View,
-} = React;
+  View
+} from 'react-native';
 
-var PanDemo = require('./PanDemo');
-var PressDemo = require('./PressDemo');
+const PanDemo = require('./PanDemo');
+const PressDemo = require('./PressDemo');
 
-var Touch = React.createClass({
-  render: function() {
+class Touch extends Component {
+  render() {
     return (
       <PanDemo/>
     );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',

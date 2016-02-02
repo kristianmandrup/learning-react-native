@@ -1,29 +1,30 @@
 'use strict';
 
-var React = require('react-native');
-var {
+import React, {
+  Component,
   StyleSheet,
   Text,
   View,
   TouchableHighlight
-} = React;
+} from 'react-native';
 
-var Button = React.createClass({
-  getInitialState: function() {
-    return {
+class Button extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       pressing: false
-    }
-  },
+    };
+  }
 
-  _onPressIn: function() {
+  _onPressIn = () => {
     this.setState({pressing: true});
-  },
+  };
 
-  _onPressOut: function() {
+  _onPressOut = () => {
     this.setState({pressing: false});
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
@@ -41,9 +42,9 @@ var Button = React.createClass({
       </View>
     );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
