@@ -1,3 +1,6 @@
+// See: https://github.com/egor-smirnov/egorsmirnov.me-examples
+// blob/master/react-and-es6-part-2/cartItem.jsx
+
 'use strict';
 
 import React, {
@@ -14,8 +17,9 @@ import NormalText from './../NormalText';
 import colors from './../../styles/colors';
 
 export default class Deck extends Component {
-  static displayName = 'Deck';
+  displayName = 'Deck';
 
+  // Used for validating properties used to set state
   static propTypes = {
     onReview: React.PropTypes.func.isRequired,
     deck: React.PropTypes.instanceOf(DeckModel),
@@ -27,11 +31,11 @@ export default class Deck extends Component {
   }
 
   _review() {
-    this.props.onReview(this.props.deck.id);
+    this.state.onReview(this.state.deck.id);
   }
 
   _addCards() {
-    this.props.addCards(this.props.deck);
+    this.state.addCards(this.state.deck);
   }
 
   render() {
@@ -40,7 +44,7 @@ export default class Deck extends Component {
 
         <Button style={styles.deckButton} onPress={this._review}>
           <NormalText>
-            {this.props.deck.name}: {this.props.deck.dueCards} due
+            {this.state.deck.name}: {this.state.deck.dueCards} due
           </NormalText>
         </Button>
 

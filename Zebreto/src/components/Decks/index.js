@@ -1,8 +1,8 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
+  Component,
   View
-} = React;
+} from 'react-native';
 
 import Reflux from 'reflux';
 import DeckMetaStore from './../../stores/DeckMetaStore';
@@ -16,38 +16,40 @@ import NormalText from './../NormalText';
 
 import DeckCreation from './DeckCreation';
 
-var Decks = React.createClass({
-  displayName: 'Decks',
+const reactMixin = import('react-mixin');
 
-  mixins: [Reflux.listenTo(DeckMetaStore, 'onDecksChange')],
+const mixin = Reflux.listenTo(DeckMetaStore, 'onDecksChange');
 
-  getInitialState() {
-    return {
-      decks: []
-    };
-  },
+reactMixin(Decks.prototype, mixin);
 
-  propTypes: {
+export default class Decks extends Component {
+  displayName = 'Decks';
+
+  state = {
+    decks: []
+  };
+
+  static propTypes = {
     createdDeck: React.PropTypes.func.isRequired,
     review: React.PropTypes.func.isRequired
-  },
+  };
 
   componentDidMount() {
     CardsStore.emit();
     DeckMetaStore.emit();
-  },
+  }
 
   onDecksChange(decks) {
     this.setState({
       decks: decks
     });
-  },
+  }
 
   _newDeck(newDeckName) {
     let deck = new DeckModel(newDeckName);
     DeckActions.createDeck(deck);
     this.props.createdDeck(deck);
-  },
+  }
 
   _getDecks() {
     if (!this.state.decks) {
@@ -67,7 +69,7 @@ var Decks = React.createClass({
   deleteAll() {
     DeckActions.deleteAllDecks();
     CardActions.deleteAllCards();
-  },
+  }
 
   render() {
     return (
@@ -82,9 +84,8 @@ var Decks = React.createClass({
       </View>
     );
   }
+}
+
+const styles = StyleSheet.create({
 });
 
-var styles = StyleSheet.create({
-});
-
-module.exports = Decks;

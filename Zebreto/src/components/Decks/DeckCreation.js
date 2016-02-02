@@ -1,8 +1,11 @@
-import React from 'react-native';
-var {
+// See: https://github.com/egor-smirnov/egorsmirnov.me-examples
+// blob/master/react-and-es6-part-2/cartItem.jsx
+
+import React, {
   StyleSheet,
+  Component,
   View
-} = React;
+} from 'react-native';
 
 import Button from './../Button';
 import NormalText from './../NormalText';
@@ -10,7 +13,7 @@ import Input from './../Input';
 
 import colors from './../../styles/colors';
 
-var CreateDeckButton = React.createClass({
+class CreateDeckButton extends Component {
   render() {
     return (
       <Button
@@ -22,18 +25,20 @@ var CreateDeckButton = React.createClass({
   }
 });
 
-var EnterDeck = React.createClass({
-  propTypes: {
+class EnterDeck extends Component {
+  static propTypes = {
     create: React.PropTypes.func.isRequired
-  },
-  getInitialState() {
-    return {
-      text: ''
-    };
-  },
+  };
+
+  state = {
+    text: ''
+  };
+
   _create() {
+    // ???
     this.props.create(this.state.text);
-  },
+  }
+
   render() {
     return (
       <View style={styles.enterDeck}>
@@ -43,24 +48,26 @@ var EnterDeck = React.createClass({
       </View>
       );
   }
-});
+}
 
-export default React.createClass({
-  propTypes: {
+export default class DeckCreation extends Component {
+  static propTypes = {
     newDeck: React.PropTypes.func.isRequired
-  },
-  getInitialState() {
-    return {
-      showingNameField: false
-    };
-  },
+  };
+
+  state = {
+    showingNameField: false
+  };
+
   _newDeck(name) {
-    this.props.newDeck(name);
-    this.setState(this.getInitialState());
-  },
+    this.state.newDeck(name);
+    this.setSate(DeckCreation.state);
+  }
+
   _showField() {
     this.setState({showingNameField: true});
-  },
+  }
+
   render() {
     var contents = this.state.showingNameField
       ? <EnterDeck create={this._newDeck}/>
@@ -68,9 +75,9 @@ export default React.createClass({
       ;
     return contents;
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   nameField: {
     backgroundColor: colors.tan,
     height: 40
