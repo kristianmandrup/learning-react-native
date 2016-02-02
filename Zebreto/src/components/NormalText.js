@@ -11,7 +11,7 @@ import Dimensions from 'Dimensions';
 let {width} = Dimensions.get('window');
 
 export default class NormalText extends Component {
-  static displayName = 'NormalText';
+  displayName = 'NormalText';
 
   static propTypes = {
     style: View.propTypes.style

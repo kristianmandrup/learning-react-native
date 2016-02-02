@@ -1,20 +1,20 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
+  Component,
   Text,
   View
-} = React;
+} from 'react-native';;
 
 import {fonts, scalingFactors} from './../styles/fonts';
 import Dimensions from 'Dimensions';
 let {width} = Dimensions.get('window');
 
-var HeadingText = React.createClass({
-  displayName: 'HeadingText',
+export default class HeadingText extends Component {
+  displayName = 'HeadingText',
 
-  propTypes: {
+  static propTypes = {
     style: View.propTypes.style
-  },
+  };
 
   render() {
     return (
@@ -25,12 +25,9 @@ var HeadingText = React.createClass({
   }
 });
 
-var scaled = StyleSheet.create({
+const scaled = StyleSheet.create({
   big: {
     fontSize: width / scalingFactors.big
   }
 });
-
-
-export default HeadingText;
 

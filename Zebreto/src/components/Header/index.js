@@ -1,14 +1,15 @@
-import React from 'react-native';
-var {
+import React, {
+  Component,  
   View,
   Image
-} = React;
+} from 'react-native';
 
 import styles from './styles';
 import HeadingText from './../HeadingText';
 
-export default React.createClass({
-  displayName: 'Header',
+export default class Header extends Component {
+  displayName = 'Header';
+
   render() {
     return (
       <View style={styles.header}>
@@ -17,4 +18,4 @@ export default React.createClass({
       </View>
       );
   }
-});
+}

@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-class Review {
+export default class Review {
   constructor(reviewCard) {
     this.card = reviewCard;
     this.reviewedBack = false;
@@ -68,4 +68,3 @@ class Review {
   }
 }
 
-module.exports = Review;

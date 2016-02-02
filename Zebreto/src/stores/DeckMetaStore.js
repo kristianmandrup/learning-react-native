@@ -9,7 +9,7 @@ const DECK_KEY = 'zebreto-decks';
 
 import CardsStore from './CardsStore';
 
-var decksStore = Reflux.createStore({
+export default Reflux.createStore({
   init() {
     this._decks = [];
     this._loadDecks().done();
@@ -88,4 +88,3 @@ var decksStore = Reflux.createStore({
   }
 });
 
-module.exports = decksStore;

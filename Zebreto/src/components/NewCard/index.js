@@ -1,8 +1,7 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
   View
-} = React;
+} from 'react-native';
 
 import { CardActions } from './../../actions';
 
@@ -14,39 +13,37 @@ import NormalText from '../NormalText';
 
 import colors from './../../styles/colors';
 
-var NewCard = React.createClass({
-  propTypes: {
+export default class NewCard extends Component {
+  static propTypes = {
     deck: React.PropTypes.instanceOf(DeckModel),
     quit: React.PropTypes.func.isRequired,
     nextCard: React.PropTypes.func.isRequired,
     review: React.PropTypes.func.isRequired
-  },
+  };
 
-  getInitialState() {
-    return {
-      font: '',
-      back: ''
-    };
-  },
+  state = {
+    font: '',
+    back: ''
+  };
 
-  _handleFront(text) {
+  _handleFront = (text) => {
     this.setState({front: text});
-  },
+  };
 
-  _handleBack(text) {
+  _handleBack = (text) => {
     this.setState({back: text});
-  },
+  };
 
-  _createCard() {
+  _createCard = () => {
     CardActions.createCard(this.state.front,
       this.state.back,
       this.props.deck.id);
     this.props.nextCard(this.props.deck);
   },
 
-  _reviewDeck() {
+  _reviewDeck = () => {
     this.props.review(this.props.deck.id);
-  },
+  }
 
   render() {
     return (
@@ -83,9 +80,9 @@ var NewCard = React.createClass({
       </View>
       );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   createButton: {
     backgroundColor: colors.green
   },
@@ -96,5 +93,3 @@ var styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
-
-export default NewCard;

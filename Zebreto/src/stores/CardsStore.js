@@ -8,7 +8,7 @@ var { AsyncStorage } = React;
 
 const CARD_KEY = 'zebreto-cards';
 
-var cardsStore = Reflux.createStore({
+export default Reflux.createStore({
   init() {
     this._loadCards().done();
     this.listenTo(CardActions.createCard, this.createCard);
@@ -70,5 +70,3 @@ var cardsStore = Reflux.createStore({
     this.trigger(this._cards);
   }
 });
-
-export default cardsStore;

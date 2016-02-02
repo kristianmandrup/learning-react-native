@@ -1,4 +1,4 @@
-var palette = {
+export default = {
   pink: '#FDA6CD',
   pink2: '#d35d90',
   green: '#65ed99',
@@ -7,4 +7,3 @@ var palette = {
   gray1: '#888888'
 };
 
-module.exports = palette;

@@ -1,8 +1,8 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
+  Component,
   View
-} = React;
+} from 'react-native';;
 
 import Button from './../Button';
 import NormalText from './../NormalText';
@@ -12,28 +12,30 @@ import { CardActions } from './../../actions';
 
 import colors from './../../styles/colors';
 
-var ContinueButton = React.createClass({
-  propTypes: {
+class ContinueButton extends Component {
+  static propTypes = {
     onPress: React.PropTypes.func.isRequired,
     wasCorrect: React.PropTypes.bool.isRequired
-  },
+  };
+
+  get text() {
+    return this.props.wasCorrect ? 'Correct! Next card?' : 'Oops, not quite. Next card?';
+  }
+
   render() {
-    let text = this.props.wasCorrect
-      ? 'Correct! Next card?'
-      : 'Oops, not quite. Next card?'
-      ;
+    // TODO: refactor!!
     return (
       <Button onPress={this.props.onPress} style={styles.continueButton}>
-        <NormalText>{text}</NormalText>
+        <NormalText>{this.text}</NormalText>
       </Button>
       );
   }
-});
+}
 
-var ViewCard = React.createClass({
-  displayName: 'ViewCard',
+export default class ViewCard extends Component {
+  displayName = 'ViewCard';
 
-  propTypes: {
+  static propTypes = {
     continue: React.PropTypes.func.isRequired,
     quit: React.PropTypes.func.isRequired,
     onReview: React.PropTypes.func.isRequired,
@@ -42,19 +44,17 @@ var ViewCard = React.createClass({
     answers: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     correctAnswer: React.PropTypes.string.isRequired,
     prompt: React.PropTypes.string.isRequired
-  },
+  };
 
-  getInitialState() {
-    return {
-      showingAnswer: false,
-      wasCorrect: null
-    };
-  },
+  state = {
+    showingAnswer: false,
+    wasCorrect: null
+  };
 
   _continue() {
     this.setState(this.getInitialState());
     this.props.continue();
-  },
+  }
 
   _selectAnswer(correct) {
     this.props.onReview(correct);
@@ -63,7 +63,7 @@ var ViewCard = React.createClass({
       wasCorrect: correct
     });
     CardActions.review(this.props.cardID, this.props.orientation, correct)
-  },
+  }
 
   _buttons() {
     if (!this.props.answers) {
@@ -93,7 +93,8 @@ var ViewCard = React.createClass({
         </Button>
         );
     });
-  },
+  }
+
   render() {
     var buttons = this._buttons();
     return (
@@ -113,9 +114,9 @@ var ViewCard = React.createClass({
       </View>
       );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   options: {
     backgroundColor: '#FFFFFF'
   },
@@ -129,5 +130,3 @@ var styles = StyleSheet.create({
     backgroundColor: colors.pink
   }
 });
-
-export default ViewCard;

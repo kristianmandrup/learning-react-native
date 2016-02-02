@@ -1,46 +1,48 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
+  Component,
   TextInput,
   View
-} = React;
+} from 'react-native';
 
 import colors from './../styles/colors';
 import {fonts} from './../styles/fonts';
 
-var Input = React.createClass({
-  propTypes: {
+export default class Input extends Component {
+  static propTypes = {
     onEntry: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
     style: View.propTypes.style,
     clearOnSubmit: React.PropTypes.bool
-  },
-  getInitialState() {
-    return {
-      text: ''
-    };
-  },
-  getDefaultProps() {
-    return {
-      clearOnSubmit: true
-    };
-  },
-  _create() {
+  }
+
+  state = {
+    text: ''
+  };
+
+  static defaultProps = {
+    clearOnSubmit: true
+  };
+
+  _create = () => {
     this.props.onEntry(this.state.text);
     this.setState(this.getInitialState());
-  },
-  _onSubmit(ev) {
+  };
+
+  _onSubmit = (ev) => {
     this.props.onEntry(ev.nativeEvent.text);
     if (!!this.props.clearOnSubmit) {
       this.setState(this.getInitialState());
     }
-  },
-  _onChange(text) {
+  };
+
+  _onChange = (text) => {
     this.setState({text: text});
     if (this.props.onChange) {
       this.props.onChange(text);
     }
-  },
+  };
+
   render() {
     return (
       <TextInput style={[styles.nameField, styles.wideButton, fonts.normal, this.props.style]}
@@ -52,11 +54,9 @@ var Input = React.createClass({
         onSubmitEditing={this._onSubmit}/>
       );
   }
-});
+}
 
-export default Input;
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   nameField: {
     backgroundColor: colors.tan,
     height: 60

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-var fonts = StyleSheet.create({
+const fonts = StyleSheet.create({
   normal: {
     fontSize: 24,
     fontFamily: 'Avenir Medium'

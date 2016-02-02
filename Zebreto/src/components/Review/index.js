@@ -1,8 +1,8 @@
-import React from 'react-native';
-var {
+import React, {
   StyleSheet,
+  Component,
   View
-} = React;
+} from 'react-native';
 
 import Reflux from 'reflux';
 import ReviewStore from './../../stores/ReviewStore';
@@ -14,36 +14,37 @@ import Button from './../Button';
 
 import colors from './../../styles/colors';
 
-var Review = React.createClass({
-  displayName: 'Review',
+const reactMixin = import('react-mixin');
 
-  mixins: [Reflux.connect(ReviewStore, 'reviews')],
+const mixin = Reflux.connect(ReviewStore, 'reviews');
+reactMixin(Review.prototype, mixin);
 
-  propTypes: {
+export default class Review extends Component {
+  displayName = 'Review';
+
+  static propTypes = {
     deckID: React.PropTypes.string.isRequired,
     quit: React.PropTypes.func.isRequired
-  },
+  };
 
-  getInitialState() {
-    return {
-      numReviewed: 0,
-      numCorrect: 0,
-      currentReview: 0
-    };
-  },
+  state = {
+    numReviewed: 0,
+    numCorrect: 0,
+    currentReview: 0
+  };
 
-  onReview(correct) {
+  onReview = (correct) => {
     if (correct) {
       this.setState({numCorrect: this.state.numCorrect + 1});
     }
     this.setState({numReviewed: this.state.numReviewed + 1});
-  },
+  };
 
-  _nextReview() {
+  _nextReview = () => {
     this.setState({
       currentReview: this.state.currentReview + 1
     });
-  },
+  };
 
   componentWillMount() {
     ReviewStore.emit();
@@ -91,7 +92,7 @@ var Review = React.createClass({
   }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.blue,
     flex: 1,
@@ -107,5 +108,3 @@ var styles = StyleSheet.create({
     backgroundColor: colors.tan
   }
 });
-
-export default Review;

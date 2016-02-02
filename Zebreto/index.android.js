@@ -5,4 +5,3 @@ import React, {
 
 import Zebreto from './src/components/Zebreto';
 AppRegistry.registerComponent('Zebreto', () => Zebreto);
-
